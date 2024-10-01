@@ -1,6 +1,7 @@
 package org.launchcode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -11,18 +12,22 @@ public class Main {
                 "So if you move all the terms over to one side, you can put the quadratics into a form that can be factored allowing that side of the equation to equal zero. " +
                 "Once you’ve done that, it’s pretty straightforward from there.";
 
-        //Initialize HashMap
-        HashMap<Character, String> sortedCharacters = new HashMap<>();
-
         char[] charactersInString = hiddenFigures.toCharArray();
-        do {
-            for (Character character : charactersInString) {
-                if (character == 'a'){
 
-                }
+        //Initialize HashMap
+        HashMap<Character, Integer> sortedCharacters = new HashMap<>();
+
+        //sort and print each character
+        for (char character : charactersInString) {
+            if (sortedCharacters.containsKey(character)) {
+                sortedCharacters.put(character, sortedCharacters.get(character) + 1);
+            } else {
+                sortedCharacters.put(character, 1);
             }
-        } while ();
-
+        }
+        for (Map.Entry<Character, Integer> pair : sortedCharacters.entrySet()){
+            System.out.println(pair.getKey() + " : " + pair.getValue());
+        }
     }
 
 }
