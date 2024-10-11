@@ -51,7 +51,7 @@ public class Menu {
         for(MenuItem item : this.MenuItems) {
             output += item + "\n";
         }
-        //add last update
+        //add last update date
         output += "Last updated on: " + this.lastUpdated;
         return output;
     }
