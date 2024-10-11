@@ -7,24 +7,24 @@ import java.time.temporal.ChronoUnit;
 public class MenuItem {
 
     //initializing variables
-    private String name;
+    private String itemName;
     private double price;
     private String description;
     private String category;
-    private final LocalDate dateAdded;
+    private boolean isNew;
 
     //constructor
-    public MenuItem(String name, double price, String description, String category) {
-        this.name = name;
+    public MenuItem(String itemName, double price, String description, String category) {
+        this.itemName = itemName;
         this.price = price;
         this.description = description;
         this.category = category;
-        this.dateAdded = LocalDate.now();
+        this.isNew = true;
     }
 
     //setters
-    public void setName(String name) {
-        this.name = name;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public void setPrice (double price) {
@@ -39,10 +39,13 @@ public class MenuItem {
         this.category = category;
     }
 
+    public void setIsNew(boolean isNew) {
+        this.isNew = isNew;
+    }
 
     //getters
-    public String getName() {
-        return name;
+    public String getItemName() {
+        return itemName;
     }
 
     public double getPrice() {
@@ -57,24 +60,30 @@ public class MenuItem {
         return category;
     }
 
-    public LocalDate getDateAdded() {
-        return dateAdded;
+    public boolean getIsNew() {
+        return isNew;
     }
 
-
-    //Checks if item is new
-    boolean isNew() {
-        LocalDate today = LocalDate.now();
-        double daysSinceAdded = dateAdded.until(today, ChronoUnit.DAYS);
-        return daysSinceAdded < 2;
-    }
-
-    //adds New if new to menu
+    //override to print menu
     @Override
     public String toString() {
-        String newText = isNew() ? " - New" : "";
-        return name + newText + "\n" + description + " | $" + price;
-
+        return (this.isNew ? "NEW! - " : "") +
+                this.itemName + " - " +
+                this.description + " - " +
+                this.category + " - " +
+                this.price;
     }
 
+    @Override
+    public boolean equals(Object toBeCompared) {
+        if (this == toBeCompared) {
+            return true;
+        }
+        if (toBeCompared == null || this.getClass() != toBeCompared.getClass()) {
+            return false;
+        }
+
+        MenuItem item = (MenuItem) toBeCompared;
+        return this.itemName.equals(itemName);
+    }
 }
