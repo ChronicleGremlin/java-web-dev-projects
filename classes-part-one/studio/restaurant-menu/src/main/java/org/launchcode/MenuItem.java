@@ -65,7 +65,7 @@ public class MenuItem {
     //Checks if item is new
     boolean isNew() {
         LocalDate today = LocalDate.now();
-        double daysSinceAdded = getDateAdded().until(today, ChronoUnit.DAYS);
+        double daysSinceAdded = dateAdded.until(today, ChronoUnit.DAYS);
         return daysSinceAdded < 2;
     }
 
