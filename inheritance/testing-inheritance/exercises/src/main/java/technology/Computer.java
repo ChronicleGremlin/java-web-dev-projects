@@ -17,8 +17,8 @@ package technology;
 //username = username constructor
 public class Computer {
     private String userName;
-    private Boolean fullyCharged = false;
-    private Boolean needToBeCharged = false;
+    private boolean fullyCharged = false;
+    private boolean needToBeCharged = false;
 
 
     public Computer(String userName) {
@@ -39,22 +39,22 @@ public class Computer {
     }
 
 
-    public Boolean getFullyCharged() {
+    public boolean getFullyCharged() {
         return fullyCharged;
     }
 
 
-    public void setFullyCharged(Boolean fullyCharged) {
+    public void setFullyCharged(boolean fullyCharged) {
         this.fullyCharged = fullyCharged;
     }
 
 
-    public Boolean getNeedToBeCharged() {
+    public boolean getNeedToBeCharged() {
         return needToBeCharged;
     }
 
 
-    public void setNeedToBeCharged(Boolean needToBeCharged) {
+    public void setNeedToBeCharged(boolean needToBeCharged) {
         this.needToBeCharged = needToBeCharged;
     }
 
