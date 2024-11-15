@@ -1,10 +1,9 @@
 package org.launchcode.hello_spring.controllers;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @ResponseBody
@@ -36,14 +35,14 @@ public class HelloController {
         return "Hello, " + name + "!";
     }
 
+
     @GetMapping("form")
     public String helloForm() {
-        return "<html>" +
-                "<body>" +
-                "<form action='/hello' method='post'>" +
+        String html =
+                "<form method='post'>" +
                 "<input type='text' name='name' placeholder='Enter your name'>" +
-                "<label for='language-select'>Choose a language:</label>" +
-                "<select name='language' id='language-select'>" +
+                "<label for='language'>Choose a language:</label>" +
+                "<select name='language' id='language'>" +
                 "  <option value=''>--Please choose an option--</option>" +
                 "  <option value='english'>English</option>" +
                 "  <option value='french'>French</option>" +
@@ -51,42 +50,35 @@ public class HelloController {
                 "  <option value='german'>German</option>" +
                 "  <option value='italian'>Italian</option>" +
                 "</select>" +
-                "<input type='submit' value='Greet me!'>" +
-                "</form>" +
-                "</body>" +
-                "</html>";
+                "<button type='submit'>Greet Me!</button>" +
+                "</form>";
+        return html;
     }
 
-    @RequestMapping(value = "hello", method = {RequestMethod.GET, RequestMethod.POST})
+    @PostMapping("form")
     @ResponseBody
     public String helloPost(@RequestParam String name, @RequestParam String language) {
+        System.out.println("Testing words!");
+// test set up correctly
+//        return language + " " + name;
+
         if (name == null || name.trim().isEmpty()) {
             name = "World";
         }
 
-        return createMessage(name, language);
-
+        return "<h1>" + createMessage(name, language) + "</h1>";
     }
 
     public static String createMessage(String n, String l) {
-        String greeting = "";
-
-        if (l.equals("english")) {
-            greeting = "Hello";
-        }
-        else if (l.equals("french")) {
-            greeting = "Bonjour";
-        }
-        else if (l.equals("italian")) {
-            greeting = "Bonjourno";
-        }
-        else if (l.equals("spanish")) {
-            greeting = "Hola";
-        }
-        else if (l.equals("german")) {
-            greeting = "Hallo";
-        }
-
-        return greeting + " " + n;
+        System.out.println("Testing things!");
+        String greeting = switch (l) {
+            case "english" -> "Hello";
+            case "french" -> "Bonjour";
+            case "italian" -> "Bonjourno";
+            case "spanish" -> "Hola";
+            case "german" -> "Hallo";
+            default -> "";
+        };
+        return "<h1>" + greeting + " " + n + "!" + "</h1>";
     }
 }
