@@ -7,16 +7,26 @@
 
 <p th:unless="${events} and ${events.size()}">No Events!</p>
 
+<p th:text="${event}"></p>
+
 <table class="table table-striped">
     <thead>
     <tr>
         <th>Name</th>
+        <th>Description</th>
     </tr>
     </thead>
         <tr th:each="event : ${events}">
-            <td th:text="${event}"></td>
+            <td th:text="${event.key}" ></td>
+            <td th:text="{event.value}"></td>
         </tr>
 </table>
+
+<!--simplified -->
+<!--<th:block th:each="event : ${events}">-->
+<!--    <p th:text="${event.name}"></p>-->
+<!--    <p th:text="${event.description}"></p>-->
+<!--</th:block>-->
 
 </body>
 </html>
