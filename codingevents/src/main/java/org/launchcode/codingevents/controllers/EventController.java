@@ -1,11 +1,10 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.controllers.data.EventData;
+import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,45 +12,54 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("events")
 public class EventController {
 
-//    private static List<String> events = new ArrayList<>();
-    final static Map<String, String> events = new HashMap<>();
-
     @GetMapping
-    public String index(){
-        return "home";
-    }
-
-    //lives at /events/create
-    @GetMapping("/create")
-    public String renderCreateEventForm() {
-        return "create";
-    }
-
-    //lives at /events/create
-    @PostMapping("/create")
-    public String createEvent(Model model, @RequestParam String eventName, @RequestParam String eventDescription) {
-//        events.add(eventName);
-        events.put(eventName, eventDescription);
-
-        model.addAttribute("name", eventName);
-        model.addAttribute("description", eventDescription);
-
-        System.out.println(events);
-        return "index";
-    }
-
-    @GetMapping("/events")
     public String displayAllEvents(Model model) {
-        model.addAttribute("allEvents", events);
+        model.addAttribute("title", "All Events");
+        model.addAttribute("events", EventData.getAll());
+        return "events/index";
+    }
 
-        events.put("Menteaship","A fun meetup for connecting with mentors");
-        events.put("Code With Pride","A fun meetup sponsored by LaunchCode");
-        events.put("Javascripty", "An imaginary meetup for Javascript developers");
-        System.out.println(events);
+    @GetMapping("create")
+    public String displayCreateEventForm(Model model) {
+        model.addAttribute("title", "Create Event");
+        return "events/create";
+    }
 
-        return "events";
+    @PostMapping("create")
+    public String processCreateEventForm(@ModelAttribute Event newEvent) {
+        EventData.add(newEvent);
+        return "redirect:/events";
+    }
+
+    @GetMapping("delete")
+    public String displayDeleteEventForm(Model model) {
+        model.addAttribute("title", "Delete Events");
+        model.addAttribute("events", EventData.getAll());
+        return "events/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeleteEventForm(@RequestParam(required = false) int[] eventIds) {
+        if (eventIds != null) {
+            for (int id : eventIds) {
+                EventData.remove(id);
+            }
+        }
+
+        return "redirect:/events";
+    }
+
+    @GetMapping("edit/{eventId}")
+    public String displayEditForm(Model model, @PathVariable int eventId){
+
+    }
+
+    @PostMapping("edit")
+    public String processEditForm(int eventId, String name, String description) {
+
     }
 }
 
