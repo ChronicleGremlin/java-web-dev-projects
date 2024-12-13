@@ -1,4 +1,4 @@
-package org.launchcode;
+package org.launchcode.controllers;
 
 import org.launchcode.controllers.models.Client;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ public class SpaDayController {
        return "serviceSelection";
     }
 
-    @PostMapping()
+    @PostMapping
     public String spaMenu( Model model, @RequestParam String skintype, @RequestParam String manipedi) {
 
        Client newClient = new Client(skintype, manipedi);
