@@ -18,6 +18,7 @@
         <th>Location</th>
         <th>Registration</th>
         <th>Number Of Attendees</th>
+        <th>Type</th>
     </tr>
     </thead>
     <tr th:each="event : ${events}">
@@ -28,6 +29,7 @@
         <td th:text="${event.location}"></td>
         <td th:text="${event.registeredTrue}"></td>
         <td th:text="${event.numberOfAttendees}"></td>
+        <td th:text="${event.type.displayName}"></td>
     </tr>
 </table>
 
